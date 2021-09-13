@@ -102,8 +102,8 @@ button {
 }
 
 #switchCameraButton {
-  opacity: 0.8;
-  visibility: hidden;
+  opacity: 0;
+  /* visibility: hidden; */
   width: 54px;
   height: 54px;
   background-image: url('img/ic_camera_rear_white_36px.svg');
