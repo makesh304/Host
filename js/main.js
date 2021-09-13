@@ -46,12 +46,6 @@ function deviceCount() {
 
 document.addEventListener('DOMContentLoaded', function (event) {
   // check if mediaDevices is supported
-  $('#city').text('hello');
-  var slide=new Splide( '#splide', {
-    perPage: 5,
-    rewind : true,
-    type   : 'loop',
-  } ).mount();
   if (
     navigator.mediaDevices &&
     navigator.mediaDevices.getUserMedia &&
