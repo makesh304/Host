@@ -134,7 +134,7 @@ findMe();
 
   // -- switch camera part
   if (amountOfCameras > 1) {
-    switchCameraButton.style.display = 'block';
+  //  switchCameraButton.style.display = 'block';
 
     switchCameraButton.addEventListener('click', function () {
       if (currentFacingMode === 'environment') currentFacingMode = 'user';
