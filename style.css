@@ -1,4 +1,4 @@
-html,body{
+.overall{
     /* height: 100%;
     width: 100%; */
     height: 100vh !important;
@@ -12,7 +12,7 @@ html,body{
 body {
   /* margin: 0px;
   padding: 0px; */
-  background: #000;
+  /* background: #000; */
 }
 
 #vid_container {
@@ -228,3 +228,16 @@ button {
     -ms-flex-pack: center;
     justify-content: center;
     overflow: hidden; }
+
+
+
+    /* ODOMETER-017
+    vin on dash-028
+    driver front corner-DRIVER-FRONT-RIM-001
+driver side ine-DRIVER-DOOR-OPEN-004
+-DRIVER-REAR-corner.--DRIVER-REAR-QUARTER-005
+PASSENGER REAR-corner-REAR-corner-010
+PASSENGER-FRONT-corner.-PASSENGER-FRONT-RIM.-007
+tire trim-018
+TRUNK  floor-TRUNK-025 */
+
