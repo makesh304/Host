@@ -324,6 +324,7 @@ function Jquryapply() {
 	$('#imgcontainer').toggleClass('d-none');
 	$('#container').toggleClass('d-none');
 	$('body,html').toggleClass('overall');
+  console.log('imgNAME',imgNAME)
   $('#title').text(imgNAME);
 	setTimeout(function() {
 		$('#preloader').hide();
@@ -349,10 +350,10 @@ var imgNAME = '';
 var Images = [];
 var imgTypeID='';
 function opneCamera(img, name,imgType) {
-	Jquryapply();
 	imgID = imgID + img;
 	imgNAME = name;
   imgTypeID=imgType;
+  Jquryapply();
 	switch (img) {
 		case 1:
 			break;
@@ -388,6 +389,8 @@ let newfilname=imgNAME.replace(/ /g, "-");
      let annotationsObject = JSON.parse(this.responseText);
      // alert(annotationsObject.response);   
       url = annotationsObject.secure_url;
+      console.log('annotationsObject',annotationsObject.height+' '+annotationsObject.width)
+      $('#title').text(annotationsObject.height+' '+annotationsObject.width)
       alert('height,width',annotationsObject.height,annotationsObject.width)
     if(url){
      console.log('url',url)
