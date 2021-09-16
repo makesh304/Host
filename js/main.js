@@ -326,7 +326,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
   return false;
 };
 function toSendLoadDetails() {
-  console.log('toSendLoadDetails')
+  console.log('https')
 	var leadID = '260886';
 	$.ajax({
 		url:
