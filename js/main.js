@@ -6,6 +6,22 @@ var toggleFullScreenButton;
 var switchCameraButton;
 var amountOfCameras = 0;
 var currentFacingMode = 'environment';
+$('#preloader').show();
+
+// Object.defineProperty(Images, "push", {
+//   configurable: true,
+//   enumerable: false,
+//   writable: true, // Previous values based on Object.getOwnPropertyDescriptor(Array.prototype, "push")
+//   value: function (...args)
+//   {
+//       let result = Array.prototype.push.apply(this, args); // Original push() implementation based on https://github.com/vuejs/vue/blob/f2b476d4f4f685d84b4957e6c805740597945cde/src/core/observer/array.js and https://github.com/vuejs/vue/blob/daed1e73557d57df244ad8d46c9afff7208c9a2d/src/core/util/lang.js
+
+//       RaiseMyEvent();
+
+//       return result; // Original push() implementation
+//   }
+// });
+
 
 function deviceCount() {
 	return new Promise(function(resolve) {
@@ -35,6 +51,19 @@ function deviceCount() {
 }
 
 document.addEventListener('DOMContentLoaded', function(event) {
+  $('.imgUpload').hide();
+  $('#preloader').hide();
+  function b64_to_utf8( str ) {
+    return decodeURIComponent(escape(window.atob( str )));
+  }
+  toSendLoadDetails(); 
+  var params = getUrlParameter('leadid');
+  if (params) {
+      
+  }
+  console.log('params',params);
+ 
+  console.log('base64Decode',b64_to_utf8('MjYwODg2'))
 	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && navigator.mediaDevices.enumerateDevices) {
 		navigator.mediaDevices
 			.getUserMedia({
@@ -194,8 +223,8 @@ function takeSnapshot() {
 	var width = video.videoWidth;
 	var height = video.videoHeight;
 
-	canvas.width = width;
-	canvas.height = height;
+	canvas.width = 720;
+	canvas.height = 480;
 
 	context = canvas.getContext('2d');
 	context.drawImage(video, 0, 0, width, height);
@@ -209,7 +238,7 @@ function takeSnapshot() {
 
 	getCanvasBlob(canvas).then(function(blob) {
 		console.log('blob', blob);
-    $('#preloader').show();
+   // $('#preloader').show();
 		var myImage = document.getElementById(imgID);
 		var objectURL = URL.createObjectURL(blob);
     console.log('myImage', myImage);
@@ -219,9 +248,9 @@ function takeSnapshot() {
 		my_object.name = imgNAME;
 		my_object.imgID = imgID;
 		my_object.img = objectURL;
-		Images.push(objectURL);
-
-    ImageUpload(blob);
+		Images.push(my_object);
+ApplyImgLoader();
+  ImageUpload(blob,imgID);
 		if (Images.length == 16) {
 		callCompleted();
     $('#preloader').hide();
@@ -263,6 +292,9 @@ function getLocationName(lat, lan) {
 	// "Accept":"application/json",//depends on your api
 	// "Content-type":"application/x-www-form-urlencoded"//depends on your api
 	//  },
+//   headers: {
+//     'Content-Type': 'application/x-www-form-urlencoded'
+// },
 	$.ajax({
 		url:
 			'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=' +
@@ -278,13 +310,32 @@ function getLocationName(lat, lan) {
 		}
 	});
 }
+var getUrlParameter = function getUrlParameter(sParam) {
+  var sPageURL = window.location.search.substring(1),
+      sURLVariables = sPageURL.split('&'),
+      sParameterName,
+      i;
+
+  for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
+
+      if (sParameterName[0] === sParam) {
+          return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+      }
+  }
+  return false;
+};
 function toSendLoadDetails() {
-	var leadID = '32112';
+  console.log('toSendLoadDetails')
+	var leadID = '260886';
 	$.ajax({
 		url:
-			'http://dev.autobuycrm.com//PaveStatusChange.aspx?source=AUTOBUY&session_key=' +
-			leadID +
-			'&event=SESSION%3ASTATUS_CHANGE&timestamp=2021-08-31T21%3A54%3A33%2B00%3A00&status=PROCESS',
+		'http://dev.autobuycrm.com//PaveStatusChange.aspx?source=AUTOBUY&session_key='+leadID+'&event=SESSION%3ASTATUS_CHANGE&timestamp=2021-08-31T21%3A54%3A33%2B00%3A00&status=PROCESS',
+      contentType: "application/json; charset=utf-8",
+      headers:{
+        "Access-Control-Allow-Origin": "http://localhost:4200",
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
+         },
 		success: function(response) {
 			var datas = JSON.stringify(response);
 			let res = JSON.parse(datas);
@@ -319,13 +370,23 @@ function findMe() {
 		alert('Geolocation is not supported by this browser.');
 	}
 }
-function Jquryapply() {
+function ApplyImgLoader() {
+  
+  $('#'+imgID).hide();
+  $('#'+imgID+'1').show();
+}
+function removeImgLoader(imgid){
+  $('#'+imgid).show();
+  $('#'+imgid+'1').hide();
+  console.log('remove',imgid)
+}
+function Jquryapply(imgname) {
 	$('#preloader').show();
 	$('#imgcontainer').toggleClass('d-none');
 	$('#container').toggleClass('d-none');
 	$('body,html').toggleClass('overall');
-  console.log('imgNAME',imgNAME)
-  $('#title').text(imgNAME);
+  console.log('imgname',imgname)
+  $('#title').text(imgname);
 	setTimeout(function() {
 		$('#preloader').hide();
 	}, 500);
@@ -343,7 +404,11 @@ function closeCamera() {
   document.getElementById(imgID).scrollIntoView({ behavior: "smooth" });
 
 	}, 700);
-	toSendLoadDetails();
+	
+
+  Images= Images.filter(obj => obj.imgID!='img_9');
+console.log('new array',Images);
+
 }
 var imgID = 'img_';
 var imgNAME = '';
@@ -353,7 +418,7 @@ function opneCamera(img, name,imgType) {
 	imgID = imgID + img;
 	imgNAME = name;
   imgTypeID=imgType;
-  Jquryapply();
+  Jquryapply(name);
 	switch (img) {
 		case 1:
 			break;
@@ -362,11 +427,15 @@ function opneCamera(img, name,imgType) {
 			break;
 	}
 }
+Images.push = function() { Array.prototype.push.apply(this, arguments);  RaiseMyEvent(this,arguments);};
+function RaiseMyEvent(val, arguments){
+console.log('',val, arguments);
+}
 function blobToFile(theBlob, fileName){
   //A Blob() is almost a File() - it's just missing the two properties below which we will add
     return new File([theBlob], fileName, { lastModified: new Date().getTime(), type: theBlob.type })
 }
-function ImageUpload(file){
+function ImageUpload(file,imgid){
  console.log('file',file)
    var formdata = new FormData();
    let folder='test';
@@ -389,9 +458,9 @@ let newfilname=imgNAME.replace(/ /g, "-");
      let annotationsObject = JSON.parse(this.responseText);
      // alert(annotationsObject.response);   
       url = annotationsObject.secure_url;
-      console.log('annotationsObject',annotationsObject.height+' '+annotationsObject.width)
-      $('#title').text(annotationsObject.height+' '+annotationsObject.width)
-      alert('height,width',annotationsObject.height,annotationsObject.width)
+      console.log('annotationsObject imgID',annotationsObject);
+      self.removeImgLoader(imgid);
+
     if(url){
      console.log('url',url)
     // self.submit(url);

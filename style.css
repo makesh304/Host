@@ -210,6 +210,20 @@ button {
     top: calc(82% - 32px);
   }
 }
+.imgUpload{
+  /* position: absolute;
+  z-index: 9;
+  top: 50%;
+  left: 50%; */
+  height: 151px;
+  width: 263px;
+  margin-left: -51px;
+  margin-top: -50px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
+  cursor: pointer;
+  display: flex;
+}
 #preloader {
     position: fixed;
     width: 100%;

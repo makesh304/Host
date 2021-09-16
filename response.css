@@ -3,15 +3,147 @@
     body {
         background-color: white;
     }
+	.square-1 {
+   
+    width: 160px;
+    height: 50px;
+    padding: 50px;
+    position: absolute;
+   margin-left: 18%;
+    border-radius: 15px;
+    
 }
+
+.square-2 {
+    
+    width: 160px;
+    height: 50px;
+    padding: 50px;
+    position: absolute;
+  margin-left: 18%;
+    margin-top: 160px;
+    border-radius: 15px;
+
+}
+
+.square-3 {
+   
+    width: 160px;
+    height: 50px;
+    padding: 50px;
+       position: absolute;
+    top: 472px;
+   margin-left: 18%;
+    border-radius: 15px;
+
+}
+
+
+.square-4 {
+   
+    width: 160px;
+    height: 50px;
+    padding: 50px;
+   position: absolute;
+    top: 853px;
+    margin-left: 18%;
+  
+    border-radius: 15px;
+
+
+}
+
+.square-5 {
+    
+    width: 160px;
+    height: 50px;
+    padding: 50px;
+    position: absolute;
+    top: 280px;
+margin-left: 18%;
+    border-radius: 15px;
+
+
+}
+
+.square-6 {
+   
+    width: 160px;
+    height: 50px;
+    padding: 50px;
+   position: absolute;
+    top: 1052px;
+    margin-left: 18%;
+    border-radius: 15px;
+
+
+}
+
+.square-8 {
+    
+    width: 160px;
+    height: 50px;
+    padding: 50px;
+        position: absolute;
+    top: 1249px;
+    margin-left: 18%;
+    border-radius: 15px;
+}
+.square-9 {
+    
+    width: 160px;
+    height: 50px;
+    padding: 50px;
+    position: absolute;
+   top: 93px;
+   margin-left: 18%;
+    border-radius: 15px;
+}
+
+.square-10 {
+    
+    width: 160px;
+    height: 50px;
+    padding: 50px;
+   position: absolute;
+    top: 1448px;
+    margin-left: 18%;
+    border-radius: 15px;
+}
+
+.square-13 {
+    
+    width: 160px;
+    height: 50px;
+    padding: 50px;
+       position: absolute;
+    top: 1645px;
+   margin-left: 18%;
+    border-radius: 15px;
+}
+
+
+.square-15 {
+   
+    width: 160px;
+    height: 50px;
+    padding: 50px;
+      position: absolute;
+       top: 660px;
+    margin-left: 14%;
+    border-radius: 15px;
+}
+
+	
+}
+
 .block img{
     border-radius: 15px;
-    height: 5000px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     cursor: pointer;
 }
 .square-1 {
-    background-color: #999999;
+   
     width: 160px;
     height: 50px;
     padding: 50px;
@@ -22,7 +154,7 @@
 }
 
 .square-2 {
-    background-color: #999999;
+    
     width: 160px;
     height: 50px;
     padding: 50px;
@@ -34,58 +166,59 @@
 }
 
 .square-3 {
-    background-color: #999999;
+   
     width: 160px;
     height: 50px;
     padding: 50px;
-    position: absolute;
-    margin-top: 320px;
-    margin-left: 15%;
+       position: absolute;
+    top: 472px;
+    margin-left: 14%;
     border-radius: 15px;
 
 }
 
 
 .square-4 {
-    background-color: #999999;
+   
     width: 160px;
     height: 50px;
     padding: 50px;
-    position: absolute;
-    margin-top: 480px;
-    margin-left: 15%;
+   position: absolute;
+    top: 853px;
+    margin-left: 14%;
+  
     border-radius: 15px;
 
 
 }
 
 .square-5 {
-    background-color: #999999;
+    
     width: 160px;
     height: 50px;
     padding: 50px;
     position: absolute;
-    margin-top: 640px;
-    margin-left: 15%;
+    top: 280px;
+    margin-left: 14%;
     border-radius: 15px;
 
 
 }
 
 .square-6 {
-    background-color: #999999;
+   
     width: 160px;
     height: 50px;
     padding: 50px;
-    position: absolute;
-    margin-top: 800px;
-    margin-left: 15%;
+   position: absolute;
+    top: 1052px;
+    margin-left: 14%;
     border-radius: 15px;
 
 
 }
 .square-7 {
-    background-color: #999999;
+  
     width: 160px;
     height: 50px;
     padding: 50px;
@@ -96,40 +229,40 @@
 }
 
 .square-8 {
-    background-color: #999999;
+    
     width: 160px;
     height: 50px;
     padding: 50px;
-    position: absolute;
-    margin-top: 1120px;
-    margin-left: 15%;
+        position: absolute;
+    top: 1249px;
+    margin-left: 14%;
     border-radius: 15px;
 }
 .square-9 {
-    background-color: #999999;
+    
     width: 160px;
     height: 50px;
     padding: 50px;
     position: absolute;
-    margin-top: 1280px;
+   top: 93px;
     margin-left: 15%;
     border-radius: 15px;
 }
 
 .square-10 {
-    background-color: #999999;
+    
     width: 160px;
     height: 50px;
     padding: 50px;
-    position: absolute;
-    margin-top: 1440px;
-    margin-left: 15%;
+   position: absolute;
+    top: 1448px;
+    margin-left: 14%;
     border-radius: 15px;
 }
 
 
 .square-11 {
-    background-color: #999999;
+  
     width: 160px;
     height: 50px;
     padding: 50px;
@@ -142,7 +275,7 @@
 
 
 .square-12 {
-    background-color: #999999;
+    
     width: 160px;
     height: 50px;
     padding: 50px;
@@ -155,19 +288,19 @@
 
 
 .square-13 {
-    background-color: #999999;
+    
     width: 160px;
     height: 50px;
     padding: 50px;
     position: absolute;
-    margin-top: 1920px;
-    margin-left: 15%;
+    top: 1645px;
+    margin-left: 14%;
     border-radius: 15px;
 }
 
 
 .square-14 {
-    background-color: #999999;
+ 
     width: 160px;
     height: 50px;
     padding: 50px;
@@ -178,18 +311,18 @@
 }
 
 .square-15 {
-    background-color: #999999;
+   
     width: 160px;
     height: 50px;
     padding: 50px;
-    position: absolute;
-    margin-top: 2240px;
-    margin-left: 15%;
+      position: absolute;
+       top: 660px;
+    margin-left: 14%;
     border-radius: 15px;
 }
 
 .square-16 {
-    background-color: #999999;
+
     width: 160px;
     height: 50px;
     padding: 50px;
@@ -200,7 +333,7 @@
 }
 
 .square-17 {
-    background-color: #999999;
+  
     width: 160px;
     height: 50px;
     padding: 50px;
@@ -212,7 +345,7 @@
 
 
 .square-18 {
-    background-color: #999999;
+    
     width: 160px;
     height: 50px;
     padding: 50px;
@@ -223,7 +356,7 @@
 }
 
 .square-19 {
-    background-color: #999999;
+   
     width: 160px;
     height: 50px;
     padding: 50px;
@@ -235,7 +368,7 @@
 
 
 .square-20 {
-    background-color: #999999;
+    
     width: 160px;
     height: 50px;
     padding: 50px;
@@ -247,7 +380,7 @@
 
 
 .square-21 {
-    background-color: #999999;
+    
     width: 160px;
     height: 50px;
     padding: 50px;
@@ -257,7 +390,7 @@
     border-radius: 15px;
 }
 .square-22 {
-    background-color: #999999;
+    
     width: 160px;
     height: 50px;
     padding: 50px;
@@ -268,7 +401,7 @@
 }
 
 .square-23 {
-    background-color: #999999;
+    
     width: 160px;
     height: 50px;
     padding: 50px;
@@ -279,7 +412,7 @@
 }
 
 .square-24 {
-    background-color: #999999;
+    
     width: 160px;
     height: 50px;
     padding: 50px;
@@ -290,7 +423,7 @@
 }
 
 .square-25 {
-    background-color: #999999;
+    
     width: 160px;
     height: 50px;
     padding: 50px;
