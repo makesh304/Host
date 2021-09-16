@@ -330,12 +330,12 @@ function toSendLoadDetails() {
 	var leadID = '260886';
 	$.ajax({
 		url:
-		'http://dev.autobuycrm.com//PaveStatusChange.aspx?source=AUTOBUY&session_key='+leadID+'&event=SESSION%3ASTATUS_CHANGE&timestamp=2021-08-31T21%3A54%3A33%2B00%3A00&status=PROCESS',
+		'https://dev.autobuycrm.com//PaveStatusChange.aspx?source=AUTOBUY&session_key='+leadID+'&event=SESSION%3ASTATUS_CHANGE&timestamp=2021-08-31T21%3A54%3A33%2B00%3A00&status=PROCESS',
       contentType: "application/json; charset=utf-8",
-      headers:{
-        "Access-Control-Allow-Origin": "http://localhost:4200",
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
-         },
+      // headers:{
+      //   "Access-Control-Allow-Origin": "http://localhost:4200",
+      //   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
+      //    },
 		success: function(response) {
 			var datas = JSON.stringify(response);
 			let res = JSON.parse(datas);
