@@ -251,9 +251,9 @@ function takeSnapshot() {
 		my_object.img = objectURL;
 		Images.push(my_object);
 		console.log('Images pud',Images.length)
-ApplyImgLoader();
+//ApplyImgLoader();
 closeCamera();
-  ImageUpload(blob,imgID);
+//  ImageUpload(blob,imgID);
 		// do something with the image blob
 	});
 }
