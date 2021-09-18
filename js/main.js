@@ -184,8 +184,8 @@ function initCameraStream() {
 			zoom: true,
 		// 	 width: { ideal: size },
 		//  height: { ideal: size },
-			//width: { min: 1024, ideal: window.innerWidth, max: 1920 },
-			//height: { min: 776, ideal: window.innerHeight, max: 1080 },
+			width: { ideal: window.innerWidth },
+			height: {  ideal: window.innerHeight },
 			facingMode: currentFacingMode
 		}
 	};
@@ -226,7 +226,7 @@ function takeSnapshot() {
 
 	canvas.width = width;
 	canvas.height = height;
-
+console.log('VIDEO WIDTH',width,'X',height)
 	context = canvas.getContext('2d');
 	context.drawImage(video, 0, 0, width, height);
 	function getCanvasBlob(canvas) {
