@@ -6,8 +6,8 @@ var toggleFullScreenButton;
 var switchCameraButton;
 var amountOfCameras = 0;
 var currentFacingMode = 'environment';
-$('#preloader').show();
-
+var leadID='';
+var TotalLength=0;
 // Object.defineProperty(Images, "push", {
 //   configurable: true,
 //   enumerable: false,
@@ -51,15 +51,16 @@ function deviceCount() {
 }
 
 document.addEventListener('DOMContentLoaded', function(event) {
-  $('.imgUpload').hide();
-  $('#preloader').hide();
+	$('#preloader').show();
+	$('.imgUpload').hide();
   function b64_to_utf8( str ) {
     return decodeURIComponent(escape(window.atob( str )));
   }
-  toSendLoadDetails(); 
+  
   var params = getUrlParameter('leadid');
   if (params) {
-      
+    leadID= b64_to_utf8(params);
+	getCheck(leadID);
   }
   console.log('params',params);
  
@@ -180,8 +181,9 @@ function initCameraStream() {
 	var constraints = {
 		audio: false,
 		video: {
-			width: { ideal: size },
-			height: { ideal: size },
+			zoom: true,
+			// width: { ideal: size },
+			// height: { ideal: size },
 			//width: { min: 1024, ideal: window.innerWidth, max: 1920 },
 			//height: { min: 776, ideal: window.innerHeight, max: 1080 },
 			facingMode: currentFacingMode
@@ -206,7 +208,6 @@ function initCameraStream() {
 		const settings = track.getSettings();
 		str = JSON.stringify(settings, null, 4);
 		console.log('settings ' + str);
-		$('#preloader').hide();
 	}
 
 	function handleError(error) {
@@ -249,13 +250,10 @@ function takeSnapshot() {
 		my_object.imgID = imgID;
 		my_object.img = objectURL;
 		Images.push(my_object);
+		console.log('Images pud',Images.length)
 ApplyImgLoader();
+closeCamera();
   ImageUpload(blob,imgID);
-		if (Images.length == 16) {
-		callCompleted();
-    $('#preloader').hide();
-		}
-		console.log('Images', Images);
 		// do something with the image blob
 	});
 }
@@ -325,35 +323,57 @@ var getUrlParameter = function getUrlParameter(sParam) {
   }
   return false;
 };
-function toSendLoadDetails() {
-  console.log('https')
-	var leadID = '260886';
+function toSendLoadDetails(url,imgid) {
+  console.log('https://dev')
+//	var leadID = '260886';
 	$.ajax({
+		type: "POST",
 		url:
-		'https://dev.autobuycrm.com//PaveStatusChange.aspx?source=AUTOBUY&session_key='+leadID+'&event=SESSION%3ASTATUS_CHANGE&timestamp=2021-08-31T21%3A54%3A33%2B00%3A00&status=PROCESS',
+		'https://appraisalapi.rcktechiees.com/ABInspect.asmx/AB_Inspect_Webhook',
       contentType: "application/json; charset=utf-8",
+	  data: "{'events':'" + 'SESSION:STAGE_CHANGE' + "','photo_url':'" + url  + "','session_key':'" + leadID + "','photo_label':'" + imgNAME + "','source':'" + 'AUTOBUY' + "','message':'" + 'PROCESS' +"'}",
       // headers:{
       //   "Access-Control-Allow-Origin": "http://localhost:4200",
       //   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
       //    },
-		success: function(response) {
+		success: function(response,textStatus, xhr) {
 			var datas = JSON.stringify(response);
 			let res = JSON.parse(datas);
+			if (xhr.status==200) {
+				removeImgLoader(imgid);
+				getCheck(leadID);
+				console.log('TotalLength',TotalLength);
+				if (TotalLength == 9) {
+					callCompleted();
+				$('#preloader').hide();
+					}
+					console.log('Images length', Images.length);
+			}
 			console.log('api data', res);
+			console.log('textStatus data', textStatus,xhr);
 		}
 	});
 }
 function callCompleted() {
-	var leadID = '32112';
+	//var leadID = '32112';
 	$.ajax({
+		type: "POST",
 		url:
-			'http://dev.autobuycrm.com//PaveStatusChange.aspx?source=AUTOBUY&session_key=' +
-			leadID +
-			'&event=SESSION%3ASTATUS_CHANGE&timestamp=2021-08-31T21%3A54%3A33%2B00%3A00&status=COMPLETE',
-		success: function(response) {
+		'https://appraisalapi.rcktechiees.com/ABInspect.asmx/AB_StatusChanges',
+      contentType: "application/json; charset=utf-8",
+	  data: "{'status':'" + 'COMPLETE' + "','session_key':'" + leadID  + "','source':'" + 'AUTOBUY' + "'}",
+      // headers:{
+      //   "Access-Control-Allow-Origin": "http://localhost:4200",
+      //   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
+      //    },
+		success: function(response,textStatus, xhr) {
 			var datas = JSON.stringify(response);
 			let res = JSON.parse(datas);
+			if (xhr.status==200) {
+		//		removeImgLoader(imgid)
+			}
 			console.log('api data', res);
+			console.log('textStatus data', textStatus,xhr);
 		}
 	});
 }
@@ -382,12 +402,13 @@ function removeImgLoader(imgid){
 }
 function Jquryapply(imgname) {
 	$('#preloader').show();
-	$('#imgcontainer').toggleClass('d-none');
-	$('#container').toggleClass('d-none');
-	$('body,html').toggleClass('overall');
+
   console.log('imgname',imgname)
   $('#title').text(imgname);
 	setTimeout(function() {
+		$('#imgcontainer').toggleClass('d-none');
+		$('#container').toggleClass('d-none');
+		$('body,html').toggleClass('overall');
 		$('#preloader').hide();
 	}, 500);
 }
@@ -401,7 +422,7 @@ function closeCamera() {
 	setTimeout(function() {
 		$('#preloader').hide();
     console.log('iddddddddddd',document.getElementById(imgID))
-  document.getElementById(imgID).scrollIntoView({ behavior: "smooth" });
+  //document.getElementById(imgID).scrollIntoView({ behavior: "smooth" });
 
 	}, 700);
 	
@@ -435,19 +456,20 @@ function blobToFile(theBlob, fileName){
   //A Blob() is almost a File() - it's just missing the two properties below which we will add
     return new File([theBlob], fileName, { lastModified: new Date().getTime(), type: theBlob.type })
 }
-function ImageUpload(file,imgid){
+async function ImageUpload(file,imgid){
  console.log('file',file)
    var formdata = new FormData();
    let folder='test';
    let leadid='';
 let newfilname=imgNAME.replace(/ /g, "-");
    const newfile = blobToFile(file,folder);
+   let fielename=leadID+'-'+ imgTypeID;
    console.log('newfile',newfile)
-   formdata.append('file', newfile, newfile.fileName);
+   formdata.append('file', newfile, fielename);
    formdata.append('upload_preset', 'qyhxvqkz');
    formdata.append('api_key', '338873942734482');
    formdata.append('api_secret', 'RtP4F9vjfn0f3FqEBuO3GeL3nNE');
-   formdata.append('public_id', 'my_folder'+'/'+newfilname)
+   formdata.append('public_id', 'my_folder'+'/'+fielename)
    formdata.append('Tags', ['autobuy', 'images_lead']);
    var xhr = new XMLHttpRequest();
    var self = this;
@@ -459,8 +481,8 @@ let newfilname=imgNAME.replace(/ /g, "-");
      // alert(annotationsObject.response);   
       url = annotationsObject.secure_url;
       console.log('annotationsObject imgID',annotationsObject);
-      self.removeImgLoader(imgid);
-
+      
+	  toSendLoadDetails(url,imgid); 
     if(url){
      console.log('url',url)
     // self.submit(url);
@@ -480,4 +502,69 @@ let newfilname=imgNAME.replace(/ /g, "-");
    };
    xhr.send(formdata);
 
+}
+function getCheck(){
+	$.ajax({
+		type: "POST",
+		url:
+		'https://appraisalapi.rcktechiees.com/ABInspect.asmx/ABSession_check',
+      contentType: "application/json; charset=utf-8",
+	  data: "{'leadid':'" + leadID + "'}",
+      // headers:{
+      //   "Access-Control-Allow-Origin": "http://localhost:4200",
+      //   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
+      //    },
+		success: function(response,textStatus, xhr) {
+			//var datas = JSON.stringify(response.d);
+			var datas = response["d"];
+			let res = JSON.parse(datas);
+	
+			if (xhr.status==200) {
+				//res.STATUS
+				if (res.length!=0) {
+					if (res[0].status=='COMPLETE') {
+					//	$("#staticBackdrop").modal('show');
+					}else{
+						res.forEach(element => {
+							if (element.imgtype=='017') {
+								$("#img_9").attr("src",element.imgurl);
+							}
+							else if (element.imgtype=='028') {
+								$("#img_5").attr("src",element.imgurl);
+							}
+							else	if (element.imgtype=='001') {
+								$("#img_3").attr("src",element.imgurl);
+							}
+							else	if (element.imgtype=='004') {
+								$("#img_15").attr("src",element.imgurl);
+							}
+							else	if (element.imgtype=='005') {
+								$("#img_4").attr("src",element.imgurl);
+							}
+							else	if (element.imgtype=='010') {
+								$("#img_6").attr("src",element.imgurl);
+							}
+							else	if (element.imgtype=='018') {
+								$("#img_10").attr("src",element.imgurl);
+							}
+							else	if (element.imgtype=='025') {
+								$("#img_13").attr("src",element.imgurl);
+							}
+						});
+					}
+					console.log('api statu', 		res[0].status);
+				$('#preloader').hide();
+				}
+		//		removeImgLoader(imgid)
+		//$("#staticBackdrop").modal('show');
+		
+	TotalLength=res.length;
+	console.log('TotalLength xh',TotalLength);
+			}else{
+				$('#preloader').hide();
+				TotalLength=res.length;
+			}
+
+		}
+	});
 }
