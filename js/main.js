@@ -224,8 +224,8 @@ function takeSnapshot() {
 	var width = video.videoWidth;
 	var height = video.videoHeight;
 
-	canvas.width = 720;
-	canvas.height = 480;
+	canvas.width = width;
+	canvas.height = height;
 
 	context = canvas.getContext('2d');
 	context.drawImage(video, 0, 0, width, height);
