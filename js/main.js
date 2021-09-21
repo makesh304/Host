@@ -8,6 +8,7 @@ var amountOfCameras = 0;
 var currentFacingMode = 'environment';
 var leadID='';
 var TotalLength=0;
+var scrollPos;
 // Object.defineProperty(Images, "push", {
 //   configurable: true,
 //   enumerable: false,
@@ -53,6 +54,39 @@ function deviceCount() {
 document.addEventListener('DOMContentLoaded', function(event) {
 	$('#preloader').show();
 	$('.imgUpload').hide();
+	
+	if(document.querySelector("#imgcontainer").requestFullscreen)
+	{
+		document.querySelector("#imgcontainer").requestFullscreen();
+	}
+else if(document.querySelector("#imgcontainer").webkitRequestFullScreen)
+{
+	document.querySelector("#imgcontainer").webkitRequestFullScreen();
+}
+var current_mode = screen.orientation;
+alert('current_mode',current_mode);
+// type
+console.log(current_mode.type)
+
+// angle
+console.log(current_mode.angle)
+screen.orientation.lock("landscape-primary")
+	.then(function() {
+		alert('Locked');
+	})
+	.catch(function(error) {
+		alert(error);
+	});
+    // if (localStorage.getItem("my_app_name_here-quote-scroll") != null) {
+	// 	console.log('my_app_name_here')
+    //     $(window).scrollTop(localStorage.getItem("my_app_name_here-quote-scroll"));
+    // }
+
+    // $(window).on("scroll", function() {
+	// 	console.log('my_app_name_here sc')
+    //     localStorage.setItem("my_app_name_here-quote-scroll", $(window).scrollTop());
+    // });
+
   function b64_to_utf8( str ) {
     return decodeURIComponent(escape(window.atob( str )));
   }
@@ -184,8 +218,8 @@ function initCameraStream() {
 			zoom: true,
 		// 	 width: { ideal: size },
 		//  height: { ideal: size },
-			width: { ideal: window.innerWidth },
-			height: {  ideal: window.innerHeight },
+			// width: { min: 1024, ideal: window.innerWidth, max: 1920 },
+			// height: { min: 776, ideal: window.innerHeight, max: 1080 },
 			facingMode: currentFacingMode
 		}
 	};
@@ -242,7 +276,7 @@ console.log('VIDEO WIDTH',width,'X',height)
    // $('#preloader').show();
 		var myImage = document.getElementById(imgID);
 		var objectURL = URL.createObjectURL(blob);
-    console.log('myImage', myImage);
+    console.log('myImage,imgID', myImage,imgID);
     console.log('objectURL', objectURL);
 		myImage.src = objectURL;
 		let my_object = {};
@@ -251,9 +285,11 @@ console.log('VIDEO WIDTH',width,'X',height)
 		my_object.img = objectURL;
 		Images.push(my_object);
 		console.log('Images pud',Images.length)
-//ApplyImgLoader();
+ApplyImgLoader();
 closeCamera();
-//  ImageUpload(blob,imgID);
+console.log('img id imgupload call',imgID);
+  ImageUpload(blob,imgID);
+ 
 		// do something with the image blob
 	});
 }
@@ -398,13 +434,17 @@ function ApplyImgLoader() {
 function removeImgLoader(imgid){
   $('#'+imgid).show();
   $('#'+imgid+'1').hide();
-  console.log('remove',imgid)
+  console.log('remove',imgid);
+  imgID = 'img_';
 }
 function Jquryapply(imgname) {
+	scrollPos = $(window).scrollTop();
+	console.log('pos',scrollPos)
 	$('#preloader').show();
 
   console.log('imgname',imgname)
   $('#title').text(imgname);
+  $('#leadid').text('#'+leadID);
 	setTimeout(function() {
 		$('#imgcontainer').toggleClass('d-none');
 		$('#container').toggleClass('d-none');
@@ -413,12 +453,22 @@ function Jquryapply(imgname) {
 	}, 500);
 }
 function closeCamera() {
+
+	console.log('pos close',scrollPos)
+
+	// scroll back
+	setTimeout(
+	  function() {
+		$('html, body').animate({
+		  scrollTop: scrollPos
+		}, 100);
+	  }, 100);
+
 	$('#preloader').show();
 	//$('#container').hide();
 	$('body,html').toggleClass('overall');
 	$('#imgcontainer').toggleClass('d-none');
 	$('#container').toggleClass('d-none');
-	imgID = 'img_';
 	setTimeout(function() {
 		$('#preloader').hide();
     console.log('iddddddddddd',document.getElementById(imgID))
@@ -457,7 +507,8 @@ function blobToFile(theBlob, fileName){
     return new File([theBlob], fileName, { lastModified: new Date().getTime(), type: theBlob.type })
 }
 async function ImageUpload(file,imgid){
- console.log('file',file)
+// console.log('file',file)
+ console.log('img id imgupload inside',imgid);
    var formdata = new FormData();
    let folder='test';
    let leadid='';
@@ -469,7 +520,7 @@ let newfilname=imgNAME.replace(/ /g, "-");
    formdata.append('upload_preset', 'qyhxvqkz');
    formdata.append('api_key', '338873942734482');
    formdata.append('api_secret', 'RtP4F9vjfn0f3FqEBuO3GeL3nNE');
-   formdata.append('public_id', 'my_folder'+'/'+fielename)
+   formdata.append('public_id', leadID.toString()+'/'+fielename)
    formdata.append('Tags', ['autobuy', 'images_lead']);
    var xhr = new XMLHttpRequest();
    var self = this;
@@ -480,7 +531,7 @@ let newfilname=imgNAME.replace(/ /g, "-");
      let annotationsObject = JSON.parse(this.responseText);
      // alert(annotationsObject.response);   
       url = annotationsObject.secure_url;
-      console.log('annotationsObject imgID',annotationsObject);
+      console.log('annotationsObject imgID',imgid);
       
 	  toSendLoadDetails(url,imgid); 
     if(url){
@@ -521,9 +572,10 @@ function getCheck(){
 	
 			if (xhr.status==200) {
 				//res.STATUS
+				TotalLength=res.length;
 				if (res.length!=0) {
 					if (res[0].status=='COMPLETE') {
-					//	$("#staticBackdrop").modal('show');
+						$("#staticBackdrop").modal('show');
 					}else{
 						res.forEach(element => {
 							if (element.imgtype=='017') {
@@ -550,16 +602,21 @@ function getCheck(){
 							else	if (element.imgtype=='025') {
 								$("#img_13").attr("src",element.imgurl);
 							}
+							else	if (element.imgtype=='007') {
+								$("#img_8").attr("src",element.imgurl);
+							}
 						});
 					}
 					console.log('api statu', 		res[0].status);
 				$('#preloader').hide();
+				}else{
+					$('#preloader').hide();
 				}
 		//		removeImgLoader(imgid)
 		//$("#staticBackdrop").modal('show');
 		
-	TotalLength=res.length;
-	console.log('TotalLength xh',TotalLength);
+
+		console.log('TotalLength xh',TotalLength);
 			}else{
 				$('#preloader').hide();
 				TotalLength=res.length;
