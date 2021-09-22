@@ -1,0 +1,35 @@
+	/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 27/01/2021 06:17
+  	*/
+
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+  font-family: Flaticon;
+  font-style: normal;
+}
+
+.flaticon-barcode-scanner:before { content: "\f100"; }
+.flaticon-warehouse:before { content: "\f101"; }
+.flaticon-distribution:before { content: "\f102"; }
+.flaticon-bus:before { content: "\f103"; }
+.flaticon-new-year:before { content: "\f104"; }
+.flaticon-contract:before { content: "\f105"; }
+.flaticon-biography:before { content: "\f106"; }
+.flaticon-target:before { content: "\f107"; }
+.flaticon-mission:before { content: "\f108"; }
+.flaticon-warehouse-1:before { content: "\f109"; }
+.flaticon-supplier:before { content: "\f10a"; }
+.flaticon-choices:before { content: "\f10b"; }
+.flaticon-package:before { content: "\f10c"; }
+.flaticon-rating:before { content: "\f10d"; }
+.flaticon-express:before { content: "\f10e"; }
+.flaticon-supply-chain:before { content: "\f10f"; }
+.flaticon-internet:before { content: "\f110"; }
+.flaticon-distribution-1:before { content: "\f111"; }
