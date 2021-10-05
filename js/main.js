@@ -627,8 +627,18 @@ function ready() {
   
   async function start() {
 	
-	await screen.orientation.lock("landscape");
-	ready();
+		if(document.documentElement.requestFullscreen)
+			document.querySelector("#imgcontainer").requestFullscreen();
+		else if(document.documentElement.webkitRequestFullScreen)
+			document.querySelector("#imgcontainer").webkitRequestFullScreen();
+	
+		screen.orientation.lock("landscape-primary")
+			.then(function(val) {
+				alert('succ',val);
+			})
+			.catch(function(error) {
+				alert(error);
+			});	
   }
 // function displayLocation(latitude,longitude){
 // 	var request = new XMLHttpRequest();
