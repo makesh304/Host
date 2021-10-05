@@ -626,7 +626,7 @@ function ready() {
   }
   
   async function start() {
-	
+
 		if(document.documentElement.requestFullscreen)
 			document.querySelector("#imgcontainer").requestFullscreen();
 		else if(document.documentElement.webkitRequestFullScreen)
