@@ -620,30 +620,6 @@ function getCheck(){
 	});
 }
 
-function ready() {
-	const { type } = screen.orientation;
-	console.log(`Fullscreen and locked to ${type}. Ready!`);
-  }
-  
-  async function start() {
-
-		if(document.documentElement.requestFullscreen)
-		{
-		document.querySelector("#vid_container").requestFullscreen();
-			document.querySelector("#imgcontainer").requestFullscreen();}
-		else if(document.documentElement.webkitRequestFullScreen){
-			document.querySelector("#vid_container").requestFullscreen();
-			document.querySelector("#imgcontainer").webkitRequestFullScreen();
-		}
-	
-		screen.orientation.lock("landscape-primary")
-			.then(function(val) {
-				alert('succ',val);
-			})
-			.catch(function(error) {
-				alert(error);
-			});	
-  }
 // function displayLocation(latitude,longitude){
 // 	var request = new XMLHttpRequest();
 
