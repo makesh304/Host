@@ -626,7 +626,7 @@ function ready() {
   }
   
   async function start() {
-	await document.body.requestFullscreen();
+	
 	await screen.orientation.lock("landscape");
 	ready();
   }
