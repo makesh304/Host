@@ -1,0 +1,442 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1"
+    />
+    
+    <meta
+      name="description"
+      content="Smart Device Camera Template for HTML, CSS, JS and WebRTC"
+    />
+    <meta name="keywords" content="HTML,CSS,JavaScript, WebRTC, Camera" />
+    <meta name="author" content="Kasper Kamperman" />
+    <title>Autobuy Inspect</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3udcFif_D8ht0cLH6Mhgs4XuDfHecO5s"></script>
+
+  <script type='text/javascript'>
+window.__lo_site_id = 321348;
+
+ 
+
+    (function() {
+        var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+        wa.src = 'https://d10lpsik1i8c69.cloudfront.net/w.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+      })();
+    </script>
+  <link href="response.css" rel="stylesheet" />
+
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css"> -->
+  <style>
+    h6{
+      color: black;
+    }
+    i{
+      color: black;
+    }
+  </style>
+  </head>
+  <body id="body">
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Session Expired</h5>
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+          </div>
+          <div class="modal-body">
+           Your Session has expired
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="preloader">
+      <div class="row">
+          <div class="spinner-border text-primary d-block" role="status">
+          
+          </div>
+      </div>
+    </div>
+        <!-- <div class="row">
+          <div class="sr-only">Loading...</div>
+        </div> -->
+    <div id="container" class="d-none">
+
+
+   
+
+
+      <div id="vid_container">
+        <div  style="position: relative;">
+  <div id="vidContinner" style="position: absolute;top: 0;border-bottom: none;z-index: 9;background-color: none;"  class=" w-100 d-flex card-header flex-row justify-content-between align-items-center">
+<div>
+  <h6 style="z-index: 2;">
+    <span id="leadid" class="badge bg-secondary"></span>
+
+    </h6>
+    <h6 class="badge bg-secondary" style="z-index: 2;">
+      <i style="color: white;padding-right: 5px;" class="fa fa-map-marker"></i>
+      <span  id="city" ></span>
+      </h6>
+  </div>
+    <h6 id="title" class="badge bg-secondary" style="z-index: 2;">
+      </h6>
+      <sapn onclick="closeCamera()" >
+        <i  style="cursor: pointer;color: white;font-size: 2.5rem;border-radius: 50%;opacity: 0.9; margin-top: -10px;z-index: 99;" class="fa fa-times-circle-o bg-secondary" aria-hidden="true"></i>
+
+      </sapn>
+
+
+  </div>
+  <div  style="position: absolute;top: 2rem;border-bottom: none;z-index: 9;background-color: none;"  class=" w-100 d-flex card-header flex-row justify-content-between align-items-center">
+<div class="text-center w-100">
+  <img id="rot_img" style="width: 100px;" src="img/new/to-landscape.gif" alt="">
+</div> 
+  </div>
+</div>
+        <video id="video" autoplay playsinline></video>
+        <div id="video_overlay"></div>
+<!-- <div class="carosoulContainer flex-row justify-content-center align-items-center">
+        <div class="splide" id="splide">
+          <div class="splide__arrows">
+            <button class="splide__arrow splide__arrow--prev">
+              <i style="color: white;" class="fa fa-arrow-left" aria-hidden="true"></i>
+
+            </button>
+            <button class="splide__arrow splide__arrow--next">
+              <i style="color: white;" class="fa fa-arrow-right" aria-hidden="true"></i>
+
+            </button>
+          </div>
+          <div class="splide__track">
+            <ul class="splide__list">
+              <li class="splide__slide">
+            <img src="https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5d35eacaf1176b0008974b54%2F0x0.jpg%3FcropX1%3D790%26cropX2%3D5350%26cropY1%3D784%26cropY2%3D3349" alt="">
+            </li>
+              <li class="splide__slide">
+                <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8MjAyMCUyMGNhcnN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80" alt="">
+              </li>
+              <li class="splide__slide"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFGOpJGqXAHKQbOcL62pdAlHKYlnsnW-n6Zg&usqp=CAU" alt=""></li>
+              <li class="splide__slide">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHMIbT1Mu9F3nTfOfbDIsY1RdXbhIInz1Upw&usqp=CAU" alt="">
+              </li>
+              <li class="splide__slide">
+                <img src="https://images.livemint.com/img/2021/08/29/1600x900/Tata_PUNCH_1630244636701_1630244651975.jpg" alt="">
+              </li>
+              <li class="splide__slide">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwtXlqPAcBbIJacVaWE9y1-FFBtt8YTbrRDA&usqp=CAU" alt="">
+              </li>
+              <li class="splide__slide">
+                <img src="https://static.autox.com/uploads/2020/09/2020-land-rover-discovery-sport-in-action-m2.jpg" alt="">
+              </li>
+              <li class="splide__slide">
+                <img src="https://imgd.aeplcdn.com/600x337/n/cw/ec/35583/aspire-exterior-right-front-three-quarter-2.jpeg?q=85" alt="">
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div> -->
+
+      </div>
+      <div id="gui_controls">
+        <button
+          id="switchCameraButton"
+          name="switch Camera"
+          type="button"
+          aria-pressed="false"
+        ></button>
+        <button
+        id="toggleFullScreenButton"
+        name="toggle FullScreen"
+        type="button"
+        aria-pressed="false"
+      ></button>
+        <button id="takePhotoButton" name="take Photo" type="button"></button>
+
+        <!-- <img src="" style="width: 200px;height: 200px;" id="preview"> -->
+      </div>
+    </div>
+    <div id="imgcontainer">
+    <h2  onclick="start()" style="background-color: rgba(0, 148, 255, 0.70);text-align: center;height: 47px;margin-top: 0px;color: white;padding-top: 8px;">Autobuy Inspect</h2>
+    <!-- <p id="demo" onclick="getLocation()">hii</p> -->
+    <div class="text-center">
+        <div class="block">
+            <!-- <div class="square-1">
+                <img id="img_1" onclick="opneCamera(1,'FRONT-BUMPER')" src="img/1-FRONT-BUMPER.jpg" style="height: 151px;
+    width: 263px;
+    margin-left: -51px;
+    margin-top: -50px;" />
+            </div> -->
+            <!-- <div class="square-2">
+                <img  id="img_2" onclick="opneCamera(2,'DRIVER-DOOR')" src="img/2-DRIVER-DOOR.jpg" style="height: 151px;
+    width: 263px;
+    margin-left: -51px;
+    margin-top: -50px;" />
+            </div> -->
+
+            <div class="square-9">
+         
+              <img id="img_9" onclick="opneCamera(9,'ODOMETER','017')" src="img/new/AUTOBUY_W_0096 ODOMETER.jpeg" style="height: 151px;
+              width: 263px;
+              margin-left: -51px;
+              margin-top: -50px;" />
+         <div id="img_91" class="flex-column align-items-center justify-content-center imgUpload">
+                <div class="row">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                 </div>
+                 <div class="row">
+                   <p>Image Uploading...</p>
+                 </div>
+             </div>
+          </div>
+
+          <div class="square-5">
+            <img id="img_5" onclick="opneCamera(5,'VIN ON DASHBOARD','028')" src="img/new/AUTOBUY_W_009612 VIN ON DOOR.jpeg" style="height: 151px;
+            width: 263px;
+            margin-left: -51px;
+            margin-top: -50px;" />
+                <div id="img_51" class="flex-column align-items-center justify-content-center imgUpload">
+                  <div class="row">
+                      <div class="spinner-border" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                   </div>
+                   <div class="row">
+                     <p>Image Uploading...</p>
+                   </div>
+               </div>
+        </div>
+            <div class="square-3">
+                <img id="img_3" onclick="opneCamera(3,'DRIVER FRONT CORNER','001')" src="img/new/AUTOBUY_W_00965 FRONT LEFT CORNER.jpeg" style="height: 151px;
+                width: 263px;
+                margin-left: -51px;
+                margin-top: -50px;" />
+                       <div id="img_31" class="flex-column align-items-center justify-content-center imgUpload">
+                        <div class="row">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                         </div>
+                         <div class="row">
+                           <p>Image Uploading...</p>
+                         </div>
+                     </div>
+            </div>
+            <div class="square-15">
+              <img id="img_15" onclick="opneCamera(15,'DRIVER SIDE INTERIOR','004')" src="img/new/AUTOBUY_W_00962 DRIVER'S SIDE.jpeg" style="height: 151px;
+              width: 263px;
+              margin-left: -51px;
+              margin-top: -50px;" />
+                     <div id="img_151" class="flex-column align-items-center justify-content-center imgUpload">
+                      <div class="row">
+                          <div class="spinner-border" role="status">
+                              <span class="sr-only">Loading...</span>
+                          </div>
+                       </div>
+                       <div class="row">
+                         <p>Image Uploading...</p>
+                       </div>
+                   </div>
+          </div>
+            <div class="square-4">
+                <img id="img_4" onclick="opneCamera(4,'DRIVER REAR CORNER','005')" src="img/new/AUTOBUY_W_00968 REAR LEFT.jpeg" style="height: 151px;
+                width: 263px;
+                margin-left: -51px;
+                margin-top: -50px;" />
+                       <div id="img_41" class="flex-column align-items-center justify-content-center imgUpload">
+                        <div class="row">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                         </div>
+                         <div class="row">
+                           <p>Image Uploading...</p>
+                         </div>
+                     </div>
+            </div>
+            <!-- <div class="square-5">
+                <img id="img_5" onclick="opneCamera(5,'BACK-BUMPER')" src="img/5-BACK-BUMPER.jpg" style="height: 151px;
+                width: 263px;
+                margin-left: -51px;
+                margin-top: -50px;" />
+            </div> -->
+            <div class="square-6">
+                <img id="img_6" onclick="opneCamera(6,'PASSENGER REAR CORNER','010')" src="img/new/AUTOBUY_W_00969 REAR RIGHT.jpeg" style="height: 151px;
+                width: 263px;
+                margin-left: -51px;
+                margin-top: -50px;" />
+                       <div id="img_61" class="flex-column align-items-center justify-content-center imgUpload">
+                        <div class="row">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                         </div>
+                         <div class="row">
+                           <p>Image Uploading...</p>
+                         </div>
+                     </div>
+            </div>
+            <!-- <div class="square-7">
+                <img id="img_7" onclick="opneCamera(7,'PASSENGER-REAR-QUARTER')" src="img/7-PASSENGER-REAR-QUARTER.jpg" style="height: 151px;
+                width: 263px;
+                margin-left: -51px;
+                margin-top: -50px;" />
+            </div> -->
+            <div class="square-8">
+                <img id="img_8" onclick="opneCamera(8,'PASSENGER FRONT CORNER','007')" src="img/new/AUTOBUY_W_00963 FRONT RIGHT CORNER.jpeg" style="height: 151px;
+                width: 263px;
+                margin-left: -51px;
+                margin-top: -50px;" />
+                       <div id="img_81" class="flex-column align-items-center justify-content-center imgUpload">
+                        <div class="row">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                         </div>
+                         <div class="row">
+                           <p>Image Uploading...</p>
+                         </div>
+                     </div>
+            </div>
+            <div class="square-10">
+              <img id="img_10" onclick="opneCamera(10,'TYRE TRIM','018')" src="img/new/AUTOBUY_W_009611 TIRE THREAD.jpeg" style="height: 151px;
+              width: 263px;
+              margin-left: -51px;
+              margin-top: -50px;" />
+                     <div id="img_101" class="flex-column align-items-center justify-content-center imgUpload">
+                      <div class="row">
+                          <div class="spinner-border" role="status">
+                              <span class="sr-only">Loading...</span>
+                          </div>
+                       </div>
+                       <div class="row">
+                         <p>Image Uploading...</p>
+                       </div>
+                   </div>
+          </div>
+            <!-- <div class="square-10">
+                <img id="img_10" onclick="opneCamera(10,'FRONT-INTERIOR')" src="img/10-FRONT-INTERIOR.jpg" style="height: 151px;
+                width: 263px;
+                margin-left: -51px;
+                margin-top: -50px;" />
+            </div>
+            <div class="square-11">
+                <img id="img_11" onclick="opneCamera(11,'REAR-INTERIOR')" src="img/11-REAR-INTERIOR.jpg" style="height: 151px;
+                width: 263px;
+                margin-left: -51px;
+                margin-top: -50px;" />
+            </div> -->
+            <!-- <div class="square-12">
+                <img id="img_12" onclick="opneCamera(12,'HOOD')" src="img/12-HOOD.jpg" style="height: 151px;
+                width: 263px;
+                margin-left: -51px;
+                margin-top: -50px;" />
+            </div> -->
+            <div class="square-13">
+                <img id="img_13" onclick="opneCamera(13,'TRUNK FLOOR','025')" src="img/new/AUTOBUY_W_009610 REAR.jpeg" style="height: 151px;
+                width: 263px;
+                margin-left: -51px;
+                margin-top: -50px;" />
+                       <div id="img_131" class="flex-column align-items-center justify-content-center imgUpload">
+                        <div class="row">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                         </div>
+                         <div class="row">
+                           <p>Image Uploading...</p>
+                         </div>
+                     </div>
+            </div>
+            <div class="square-14">
+              <img id="img_14" onclick="opneCamera(14,'DASH FROM BACK SEAT','002')" src="img/new/back Seat.png" style="height: 151px;
+              width: 263px;
+              margin-left: -51px;
+              margin-top: -50px;" />
+                     <div id="img_141" class="flex-column align-items-center justify-content-center imgUpload">
+                      <div class="row">
+                          <div class="spinner-border" role="status">
+                              <span class="sr-only">Loading...</span>
+                          </div>
+                       </div>
+                       <div class="row">
+                         <p>Image Uploading...</p>
+                       </div>
+                   </div>
+          </div>
+          <div class="square-16">
+            <img id="img_16" onclick="opneCamera(16,'DRIVER SIDE INTERIOR','004')" src="img/new/front inte.png" style="height: 151px;
+            width: 263px;
+            margin-left: -51px;
+            margin-top: -50px;" />
+                   <div id="img_161" class="flex-column align-items-center justify-content-center imgUpload">
+                    <div class="row">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                     </div>
+                     <div class="row">
+                       <p>Image Uploading...</p>
+                     </div>
+                 </div>
+        </div>
+            <!-- <div class="square-14">
+                <img id="img_14" onclick="opneCamera(14,'ROOF')" src="img/14-ROOF.jpg" style="height: 151px;
+                width: 263px;
+                margin-left: -51px;
+                margin-top: -50px;" />
+            </div> -->
+       
+            <!-- <div class="square-16">
+                <img id="img_16" onclick="opneCamera(16,'EXTRA-OPEN-SPACE')" src="img/16-EXTRA-OPEN-SPACE.jpg" style="height: 151px;
+                width: 263px;
+                margin-left: -51px;
+                margin-top: -50px;" />
+            </div> -->
+            <!-- <div class="square-17">
+              
+            </div>
+            <div class="square-18">
+               
+            </div>
+            <div class="square-19">
+              
+            </div>
+            <div class="square-20">
+              
+            </div>
+            <div class="square-21">
+               
+            </div>
+            <div class="square-22">
+               
+            </div>
+            <div class="square-23">
+               
+            </div>
+            <div class="square-24">
+              
+            </div>
+            <div class="square-25">
+            
+            </div> -->
+        </div>
+    </div>
+  </div>
+    <script src="js/adapter.min.js"></script>
+    <script src="js/screenfull.min.js"></script>
+    <script src="js/howler.core.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
